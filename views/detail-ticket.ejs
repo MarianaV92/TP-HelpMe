@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil</title>
+</head>
+<body>
+
+ <%- include('partials/header') %>
+
+  <main>
+<h1>Détails du ticket</h1>
+<p><strong>ID :</strong> <%= ticket.id %></p>
+<p><strong>Titre :</strong> <%= ticket.titre %></p>
+<p><strong>Auteur :</strong> <%= ticket.auteur.name %></p>
+<p><strong>Description :</strong> <%= ticket.description %></p>
+<p><strong>Création :</strong> <%= ticket.creation.toLocaleString() %></p>
+<p><strong>État :</strong> <%= ticket.etat %></p>
+<a href="/tickets">Retour à la liste</a>
+  </main>
+
+
+ <%- include('partials/footer') %>
+
+</body>
+</html>

@@ -9,8 +9,20 @@
  <%- include('partials/header') %>
 
   <main>
-    <h2>Bienvenue</h2>
-    <p><%= message %></p>
+<h1>Tickets</h1>
+  <ul>
+    <% for(let i = 0; i < tickets.length; i++) { %>
+      <li>
+        <strong>Auteur :</strong> <%= tickets[i].auteur.name %><br>
+        <strong>Titre :</strong> <%= tickets[i].titre %><br>
+        <strong>Description :</strong> <%= tickets[i].description %><br>
+        <strong>Création :</strong> <%= tickets[i].creation %><br>
+        <strong>Etat :</strong> <%= tickets[i].etat %>
+      </li>
+           <a href="/tickets/<%= tickets[i].id %>">Détails</a>
+    <% } %>
+   
+  </ul>
   </main>
 
  <%- include('partials/footer') %>
