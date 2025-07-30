@@ -11,6 +11,9 @@ function findTickets() {
   return tickets.slice().sort((a, b) => a.creation - b.creation);
 }
 
+function filterTicketsByEtat(tickets, etat) {
+  return tickets.filter(ticket => ticket.etat === etat);
+}
 function createTicket(data) {
   const ticket = new Ticket({
     id: nextId++,
@@ -25,5 +28,6 @@ function createTicket(data) {
 module.exports = {
   findTickets,
   setTickets,
-  createTicket
+  createTicket,
+  filterTicketsByEtat
 };

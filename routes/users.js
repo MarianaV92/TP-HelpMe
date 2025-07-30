@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/userController');
+
+
+// Détail d’un ticket
+//router.get('/:username', userController.getUserByUsername);
+
+
+module.exports = router;

@@ -2,10 +2,10 @@
 
 require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const app = express();
 
-const { format, formatDate } = require('date-fns');
-const { findTickets, setTickets } = require('./services/ticketsService');
+const { setTickets } = require('./services/ticketsService');
 const mockTickets = require('./services/mockTickets');
 setTickets(mockTickets);
 
@@ -13,31 +13,38 @@ setTickets(mockTickets);
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
-app.get(['/', '/tickets'], (req, res) => {
-   const tickets = findTickets()
-  /* const tickets = [
-    { description: 'Test ticket 1' },
-    { description: 'Test ticket 2' },
-  ];*/
-  console.log(findTickets())
-  res.render('liste-tickets', { tickets });
-  console.log(tickets)
+
+app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,       // signer le coookie de session   
+  resave: false,                    
+  saveUninitialized: true,           
+  cookie: { secure: false }          
+}));
+
+//-----Attention indisponsable pour passer la session à toutes les vues
+app.use((req, res, next) => {
+  res.locals.session = req.session || null;  // rend `session` disponible dans toutes les vues
+  next();
 });
+// Routes
+const ticketRoutes = require('./routes/tickets');
+//const userRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
+
+app.use('/tickets', ticketRoutes);
+//app.use('/users', userRoutes);
+app.use('/login',authRoutes)
+app.use('/logout',authRoutes)
+
+// Redirection de base vers /tickets
+app.get('/', (req, res) => res.redirect('/tickets'));
 
 
 
-app.get('/tickets/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const ticket = findTickets().find(t => t.id === id);
-  console.log(ticket)
-  if (!ticket) {
-    return res.status(404).send('Ticket non trouvé');
-  }
-  res.render('detail-ticket', { ticket });
-});
 
-
-
+// Serveur
 const port = process.env.PORT_NO || 3000;
 app.listen(port, () => {
   console.log(`Serveur démarré sur http://localhost:${port}`);
