@@ -1,11 +1,11 @@
-const { getAllUsers } = require('../services/usersService');
-const { findTickets } = require('../services/ticketsService');
+import { getAllUsers } from '../services/usersService.js';
+import { findTickets } from '../services/ticketsService.js';
 
-exports.getLogin = (req, res) => {
+export function getLogin(req, res) {
   res.render('login');
-};
+}
 
-exports.post = (req, res) => {
+export function post(req, res) {
   const { username, password } = req.body;
   const user = getAllUsers().find(u => u.username === username);
 
@@ -13,8 +13,8 @@ exports.post = (req, res) => {
     return res.status(404).send('Utilisateur non trouvé ou mot de passe incorrect');
   }
 
-// Faut stocker les donnes dans la session
-   req.session.user = {
+  // Stockage des données dans la session
+  req.session.user = {
     id: user.id,
     name: user.name,
     role: user.role
@@ -23,14 +23,13 @@ exports.post = (req, res) => {
   const tickets = findTickets();
   // Connexion OK
   res.render('liste-tickets', { tickets });
-};
+}
 
-
-exports.logout = (req, res) => {
+export function logout(req, res) {
   req.session.destroy(err => {
     if (err) {
       return res.status(500).send("Erreur lors de la déconnexion");
     }
     res.redirect('/login');
   });
-};
+}

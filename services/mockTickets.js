@@ -1,4 +1,4 @@
-const { EtatTicket } = require('../bo/Ticket');
+import { EtatTicket } from '../bo/Ticket.js';
 
 const mockTickets = [
   {
@@ -27,4 +27,4 @@ const mockTickets = [
   },
 ];
 
-module.exports = mockTickets;
+export default mockTickets;

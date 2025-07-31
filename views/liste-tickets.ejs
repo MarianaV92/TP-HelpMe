@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Accueil</title>
+   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
 
@@ -10,19 +11,18 @@
 
   <main>
 <h1>Tickets</h1>
-  <ul>
-    <% for(let i = 0; i < tickets.length; i++) { %>
-      <li>
-        <strong>Auteur :</strong> <%= tickets[i].auteur.name %><br>
-        <strong>Titre :</strong> <%= tickets[i].titre %><br>
-        <strong>Description :</strong> <%= tickets[i].description %><br>
-        <strong>Création :</strong> <%= tickets[i].creation %><br>
-        <strong>Etat :</strong> <%= tickets[i].etat %>
-      </li>
-           <a href="/tickets/<%= tickets[i].id %>">Détails</a>
-    <% } %>
-   
-  </ul>
+ <ul>
+  <% tickets.forEach(ticket => { %>
+    <li>
+      <strong>Auteur :</strong> <%= ticket.auteur.name %><br>
+      <strong>Titre :</strong> 
+      <a href="/tickets/<%= ticket.id %>"><%= ticket.titre %></a><br>  
+      <strong>Description :</strong> <%= ticket.description %><br>
+      <strong>Création :</strong> <%= ticket.creation.toLocaleString() %><br>
+      <strong>Etat :</strong> <%= ticket.etat %>
+    </li>
+  <% }) %>
+</ul>
   </main>
 
  <%- include('partials/footer') %>

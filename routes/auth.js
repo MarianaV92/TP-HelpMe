@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const { body, validationResult } = require('express-validator');
-const userController = require('../controllers/userController');
+import express from 'express';
+import { body, validationResult } from 'express-validator';
+import { getLogin, post, logout } from '../controllers/userController.js';
 
-router.get('/', userController.getLogin);
+const router = express.Router();
+
+router.get('/', getLogin);
 
 router.post(
   '/',
@@ -17,10 +18,10 @@ router.post(
     }
     next();
   },
-  userController.post
+  post
 );
 
 // GET logout
-router.get('/logout', userController.logout);
+router.get('/logout', logout);
 
-module.exports = router;
+export default router;

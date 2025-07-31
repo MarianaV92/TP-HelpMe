@@ -5,7 +5,7 @@
     <% if (session && session.user) { %>
       <p>Connecté en tant que <%= session.user.name %> (<%= session.user.role %>)</p>
       <a href="/login/logout">Se déconnecter</a>
-      <a href="/ticket/create"> Creer Un ticket</a>
+      <a href="/tickets/create"> Creer Un ticket</a>
     <% } else { %>
       <a href="/login"> Se connecter</a>
       

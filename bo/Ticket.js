@@ -1,11 +1,11 @@
-const { format } = require('date-fns');
+import { format } from 'date-fns';
 
-const EtatTicket = {
+export const EtatTicket = {
   OUVERT: 'OUVERT',
   CLOS: 'CLOS'
 };
 
-class Ticket {
+export class Ticket {
   constructor({ id, auteur, titre, description, creation = new Date(), etat = EtatTicket.OUVERT }) {
     if (!auteur) throw new Error("Auteur est obligatoire");
     if (!titre || titre.length > 50) throw new Error("Titre invalide");
@@ -30,5 +30,3 @@ class Ticket {
     return format(this.creation, 'dd/MM/yyyy HH:mm');
   }
 }
-
-module.exports = { Ticket, EtatTicket };

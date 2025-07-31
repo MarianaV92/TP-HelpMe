@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/styles.css" />
   <title>Accueil</title>
 </head>
 <body>
@@ -17,6 +18,11 @@
 <p><strong>Création :</strong> <%= ticket.creation.toLocaleString() %></p>
 <p><strong>État :</strong> <%= ticket.etat %></p>
 <a href="/tickets">Retour à la liste</a>
+ <% if (session && session.user) { %>
+<form action="/tickets/<%= ticket.id %>/delete" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce ticket ?');">
+  <button type="submit">Supprimer</button>
+</form>
+   <% } %>
   </main>
 
 

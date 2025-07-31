@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <title>Créer un ticket</title>
+</head>
+<body>
+
+  <%- include('partials/header') %>
+
+  <main>
+    <h1>Créer un nouveau ticket</h1>
+
+    <form action="/tickets/create" method="POST">
+      <div>
+        <label for="titre">Titre :</label>
+        <input type="text" id="titre" name="titre" required>
+      </div>
+
+      <div>
+        <label for="auteur">Auteur :</label>
+        <input type="text" id="auteur" name="auteur" required>
+      </div>
+
+      <div>
+        <label for="description">Description :</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+      </div>
+
+      <div>
+        <label for="etat">État :</label>
+        <select id="etat" name="etat" required>
+          <option value="ouvert">Ouvert</option>
+          <option value="en cours">En cours</option>
+          <option value="fermé">Fermé</option>
+        </select>
+      </div>
+
+      <div>
+        <button type="submit">Créer</button>
+      </div>
+    </form>
+
+    <a href="/tickets">Retour à la liste</a>
+  </main>
+
+  <%- include('partials/footer') %>
+
+</body>
+</html>

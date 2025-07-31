@@ -4,4 +4,4 @@ const mockUsers = [
   { id: 3, username: 'joe789', password: 'password3', name: 'Joe Durant', role: 'user' },
 ];
 
-module.exports = mockUsers;
+export default mockUsers;

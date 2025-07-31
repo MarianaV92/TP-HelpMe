@@ -1,11 +1,22 @@
-const express = require('express');
+import express from 'express';
+import { getAllTickets, getTicketById, showCreateForm, createTicket,deleteTicketById } from '../controllers/ticketController.js';
+
 const router = express.Router();
-const ticketController = require('../controllers/ticketController');
 
-// Liste des tickets
-router.get( '/', ticketController.getAllTickets);
+// ---Liste des tickets
+router.get('/', getAllTickets);
 
-// Détail d’un ticket
-router.get('/:id', ticketController.getTicketById);
+//---- Affiche formulaire de création 
+router.get('/create', showCreateForm);
 
-module.exports = router;
+
+
+// -----Création du ticket (POST)
+router.post('/create', createTicket);
+
+// ----Détail d’un ticket (id dynamique)
+router.get('/:id', getTicketById);
+//---- Delete un ticket
+router.post('/:id/delete', deleteTicketById);
+
+export default router;

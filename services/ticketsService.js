@@ -1,33 +1,41 @@
-const { Ticket, EtatTicket } = require('../bo/Ticket');
+import { Ticket, EtatTicket } from '../bo/Ticket.js';
+import mockTickets from './mockTickets.js';
 
 let tickets = [];
-let nextId =1;
+let nextId = 1;
 
-function setTickets(tab) {
+export function setTickets(tab) {
   tickets = tab;
+   nextId = tickets.length > 0 ? Math.max(...tickets.map(t => t.id)) + 1 : 1;
 }
 
-function findTickets() {
+export function findTickets() {
   return tickets.slice().sort((a, b) => a.creation - b.creation);
 }
 
-function filterTicketsByEtat(tickets, etat) {
+export function filterTicketsByEtat(tickets, etat) {
   return tickets.filter(ticket => ticket.etat === etat);
 }
-function createTicket(data) {
+
+export function createTicketService(data) {
   const ticket = new Ticket({
     id: nextId++,
     auteur: data.auteur,
     titre: data.titre,
-    description: data.description
+    description: data.description,
   });
   tickets.push(ticket);
   return ticket;
 }
 
-module.exports = {
-  findTickets,
-  setTickets,
-  createTicket,
-  filterTicketsByEtat
-};
+
+export function deleteTicket(id) {
+  const index = tickets.findIndex(t => t.id === id);
+  if (index !== -1) {
+    tickets.splice(index, 1);
+    return true;  
+  }
+  return false; 
+}
+
+setTickets(mockTickets);
