@@ -1,9 +1,41 @@
-import { User } from '../bo/User.js';
+
+import { insertUser, findAll, findUserByUsername, deleteUser } from '../dal/usersDal.js';
+
+export async function createUserService(data) {
+  const inserted = await insertUser(data);
+  return inserted;
+}
+
+export async function findUserByUsernameService(username) {
+  const user  = await findUserByUsername(username);
+  return user;
+}
+
+
+export async function deleteUserById(id){
+return await deleteUser(id);
+}
+
+// Lister tous les utilisateurs
+export async function getAllUsers() {
+  const users = await findAll();
+    return users;
+}
+
+
+
+/*import { User } from '../bo/User.js';
 import mockUsers from './mockUsers.js';
 
 const DB_USERS = mockUsers;
 
 let nextId = DB_USERS.length > 0 ? Math.max(...DB_USERS.map(u => u.id)) + 1 : 1;
+
+
+
+
+
+
 
 // Ajouter un nouvel utilisateur
 export function addUser(userData) {
@@ -27,3 +59,4 @@ export function findUserByUsername(username) {
 export function getAllUsers() {
   return DB_USERS;
 }
+*/

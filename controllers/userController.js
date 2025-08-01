@@ -1,28 +1,40 @@
 import { getAllUsers } from '../services/usersService.js';
 import { findTickets } from '../services/ticketsService.js';
+import bcrypt from 'bcrypt';
 
 export function getLogin(req, res) {
   res.render('login');
 }
-
-export function post(req, res) {
+export async function post(req, res) {
   const { username, password } = req.body;
-  const user = getAllUsers().find(u => u.username === username);
 
-  if (!user || user.password !== password) {
-    return res.status(404).send('Utilisateur non trouvé ou mot de passe incorrect');
+  try {
+    const users = await getAllUsers();
+    const user = users.find(u => u.username === username);
+
+    if (!user) {
+      return res.status(401).send('Nom d’utilisateur ou mot de passe incorrect');
+    }
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      // Message générique
+      return res.status(401).send('Nom d’utilisateur ou mot de passe incorrect');
+    }
+
+    // --------Stockage dans la session
+    req.session.user = {
+      id: user._id || user.id,
+      name: user.name,
+      role: user.role,
+    };
+
+    const tickets = await findTickets();
+    res.render('liste-tickets', { tickets });
+
+  } catch (error) {
+    console.error('Erreur lors de la connexion :', error);
+    res.status(500).send('Erreur serveur');
   }
-
-  // Stockage des données dans la session
-  req.session.user = {
-    id: user.id,
-    name: user.name,
-    role: user.role
-  };
-
-  const tickets = findTickets();
-  // Connexion OK
-  res.render('liste-tickets', { tickets });
 }
 
 export function logout(req, res) {

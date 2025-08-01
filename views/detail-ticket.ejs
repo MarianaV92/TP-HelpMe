@@ -19,7 +19,7 @@
 <p><strong>État :</strong> <%= ticket.etat %></p>
 <a href="/tickets">Retour à la liste</a>
  <% if (session && session.user) { %>
-<form action="/tickets/<%= ticket.id %>/delete" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce ticket ?');">
+<form action="/tickets/<%= ticket._id %>/delete" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce ticket ?');">
   <button type="submit">Supprimer</button>
 </form>
    <% } %>

@@ -1,4 +1,38 @@
-import { Ticket, EtatTicket } from '../bo/Ticket.js';
+import { insertTicket, findAll, findTicketByObjectId, deleteTicket } from '../dal/ticketsDal.js';
+
+
+//----------- Retourne tous les tickets, triés par date de création
+export async function findTickets() {
+  const tickets = await findAll();
+  return tickets;
+}
+
+//----------- Retourne un ticket par son ID
+
+export async function findTicketByID(id) {
+  const ticket = await findTicketByObjectId(id);
+  return ticket;
+}
+
+//-------- Filtrage par état
+export function filterTicketsByEtat(tickets, etat) {
+  return tickets.filter(ticket => ticket.etat === etat);
+}
+
+// --------Création d’un ticket
+export async function createTicketService(data) {
+  const inserted = await insertTicket(data);
+  return inserted;
+}
+
+// -------Suppression d’un ticket
+export async function deleteTicketService(id) {
+  return await deleteTicket(id); 
+}
+
+
+
+/*import { Ticket, EtatTicket } from '../bo/Ticket.js';
 import mockTickets from './mockTickets.js';
 
 let tickets = [];
@@ -38,4 +72,4 @@ export function deleteTicket(id) {
   return false; 
 }
 
-setTickets(mockTickets);
+setTickets(mockTickets);*/

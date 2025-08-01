@@ -1,4 +1,6 @@
 import dotenv from 'dotenv';
+import { connectToDb,  } from './db/db.js';  
+
 dotenv.config();
 
 import express from 'express';
@@ -64,6 +66,11 @@ app.use((req, res, next) => {
   res.status(404).render('404');  
 });
 
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur http://localhost:${PORT}`);
-});
+
+(async () => {
+  await connectToDb();
+
+  app.listen(PORT, () => {
+    console.log(`Serveur démarré sur http://localhost:${PORT}`);
+  });
+})(); 

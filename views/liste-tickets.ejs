@@ -16,7 +16,7 @@
     <li>
       <strong>Auteur :</strong> <%= ticket.auteur.name %><br>
       <strong>Titre :</strong> 
-      <a href="/tickets/<%= ticket.id %>"><%= ticket.titre %></a><br>  
+      <a href="/tickets/<%= ticket._id %>"><%= ticket.titre %></a><br>  
       <strong>Description :</strong> <%= ticket.description %><br>
       <strong>Création :</strong> <%= ticket.creation.toLocaleString() %><br>
       <strong>Etat :</strong> <%= ticket.etat %>
