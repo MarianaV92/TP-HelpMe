@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import mockUsers from './mockUsers.js';
-import { connectToDb, getDb } from '../db/db.js';  
+import { connectToDb} from '../db/db.js';  
 
 
 (async () => {
